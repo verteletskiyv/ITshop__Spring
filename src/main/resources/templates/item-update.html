@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit item</title>
+    <link rel="stylesheet" th:href="@{/main.css}">
+</head>
+<body>
+<div th:replace="layouts/header :: header"></div>
+<main class="container">
+    <h1>Edit item</h1>
+    <form method="post" th:action="@{'/item/' + ${item.id} + '/update'}">
+        <input type="text" name="title" th:value="${item.title}" placeholder="Name">
+        <input type="text" name="image" th:value="${item.image}" placeholder="Photo URL">
+        <input type="number" name="price" th:value="${item.price}" placeholder="Price">
+        <textarea name="info" placeholder="Description" th:text="${item.info}"></textarea>
+        <button type="submit">Change</button>
+    </form>
+</main>
+<div th:replace="layouts/footer :: footer"></div>
+</body>
+</html>

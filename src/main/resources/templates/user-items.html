@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>User's items</title>
+    <link rel="stylesheet" th:href="@{/main.css}">
+</head>
+<body>
+<div th:replace="layouts/header :: header"></div>
+<div sec:authorize="hasAuthority('ADMIN')">
+<main class="container">
+    <div class="items" th:if="${!items.isEmpty()}">
+        <div th:each="el : ${items}">
+            <a th:href="'/item/' + ${el.id}"><img th:src="${el.image}" th:alt="${el.title}"></a>
+            <h3 th:text="${el.title}" />
+            <p th:text="${el.info}" />
+            <span th:text="${el.price} + '$'" />
+        </div>
+    </div>
+    <div th:if="${items.isEmpty()}" class="block">
+        <p>Nothing to show</p>
+    </div>
+</main>
+</div>
+<div sec:authorize="!hasAuthority('ADMIN')" class="block">
+    <h1>Access denied</h1>
+    <p>This page is available for Admins only</p>
+</div>
+<div th:replace="layouts/footer :: footer"></div>
+</body>
+</html>

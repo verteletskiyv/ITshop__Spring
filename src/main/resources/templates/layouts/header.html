@@ -1,0 +1,21 @@
+<header class="container" xmlns:th="http://www.theamleaf.org"
+        xmlns:sec="http://www.theamleaf.org/extras/spring-security" th:fragment="header">
+  <span class="logo">itShop</span>
+  <nav>
+    <a href="/">Main</a>
+    <a href="/about-us">About Us</a>
+
+
+    <span sec:authorize="!isAuthenticated()">
+    <a href="/login">Log in</a>
+    <a href="/reg">Registration</a>
+      </span>
+    <span sec:authorize="isAuthenticated()">
+    <a href="/item/add">Add item</a>
+    <a href="/user">User Account</a>
+      </span>
+    <span sec:authorize="hasAuthority('ADMIN')">
+    <a href="/admin">Admin Panel</a>
+      </span>
+  </nav>
+</header>

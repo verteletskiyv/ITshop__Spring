@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.theamleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>User account</title>
+    <link rel="stylesheet" th:href="@{/main.css}">
+</head>
+<body>
+<div th:replace="layouts/header :: header"></div>
+<main class="container">
+    <h1>User account</h1>
+    <p>Hi, <span sec:authentication="name" /></p>
+    <form method="post" th:action="@{/logout}">
+    <button type="submit">Log out</button>
+    </form>
+
+    <h2>Change account data</h2>
+    <form method="post" action="/user/update">
+        <input type="email" name="email" th:value="${user.email}" placeholder="Email">
+        <input type="password" name="password" placeholder="Password">
+            <select name="roles" id="role">
+                <option value="USER">User</option>
+                <option value="ADMIN">Admin</option>
+                <option value="REDACTOR">Editor</option>
+            </select>
+        <button type="submit" class="update_btn">Submit</button>
+    </form>
+
+</main>
+<div th:replace="layouts/footer :: footer"></div>
+</body>
+</html>

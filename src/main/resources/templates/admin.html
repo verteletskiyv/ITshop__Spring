@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin panel</title>
+    <link rel="stylesheet" th:href="@{/main.css}">
+</head>
+<body>
+<div th:replace="layouts/header :: header"></div>
+<div sec:authorize="hasAuthority('ADMIN')">
+<main class="users_container">
+    <h1>All users</h1>
+    <div class="flex-container">
+        <div th:each="el : ${users}" class="flex-item">
+            <h2>User: <span th:text=" ${el.username}"/></h2>
+            <p>Email: <span th:text="${el.email}"/></p>
+            <p>Role: <span th:text="${el.roles}"/></p>
+            <a th:href="'/admin/user-' + ${el.id}"> <button type="submit" class="reviews_btn">Author's items</button></a>
+        </div>
+    </div>
+</main>
+</div>
+<div sec:authorize="!hasAuthority('ADMIN')" class="block">
+    <h1>Access denied</h1>
+    <p>This page is available for Admins only</p>
+</div>
+<div th:replace="layouts/footer :: footer"></div>
+</body>
+</html>
